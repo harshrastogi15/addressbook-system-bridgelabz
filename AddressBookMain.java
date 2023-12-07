@@ -8,6 +8,15 @@ class AddressBookMain{
     public static void InputForAddressBook(Scanner scn,Integer cnt,String addressBookName){
         System.out.println("Enter Your First Name: ");
         String firstName = scn.next();
+
+        /*
+         * Checking Duplicate entry in book
+         */
+
+        if(contactDetail.get(addressBookName).get(firstName)!=null){
+            System.out.println("Detail already exist in this address book");return ;
+        }
+
         System.out.println("Enter Your Last Name: ");
         String lastName = scn.next();
         System.out.println("Enter Your Address: ");
