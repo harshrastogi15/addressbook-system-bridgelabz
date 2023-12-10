@@ -8,7 +8,8 @@ public class AddressBook {
     private String phoneNumber;
     private String email;
 
-    public AddressBook(Integer id, String firstName, String lastName, String address, String city, Integer zipcode, String phoneNumber, String email){
+    public AddressBook(Integer id, String firstName, String lastName, String address, String city, Integer zipcode,
+            String phoneNumber, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,30 +21,46 @@ public class AddressBook {
     }
 
     // Method for Display Information
-    public void displayInformation(){
+    public void displayInformation() {
         System.out.println("ID: " + this.id);
-        System.out.println("Name: " + this.firstName + " "+ this.lastName);
-        System.out.println("Address: " + this.address + ", "+ this.city);
-        System.out.println("zipcode: " + this.zipcode );
-        System.out.println("Phone No.: " + this.phoneNumber );
-        System.out.println("Email: " + this.email );
+        System.out.println("Name: " + this.firstName + " " + this.lastName);
+        System.out.println("Address: " + this.address + ", " + this.city);
+        System.out.println("zipcode: " + this.zipcode);
+        System.out.println("Phone No.: " + this.phoneNumber);
+        System.out.println("Email: " + this.email);
     }
 
     // Methods for edit the details
-    public void editAddress(String address){
+    public void editAddress(String address) {
         this.address = address;
     }
-    public void editCity(String city){
+
+    public void editCity(String city) {
         this.city = city;
     }
-    public void editZipCode(Integer zip){
+
+    public void editZipCode(Integer zip) {
         this.zipcode = zip;
     }
-    public void editPhoneNo(String phone){
+
+    public void editPhoneNo(String phone) {
         this.phoneNumber = phone;
     }
-    public void editEmail(String email){
+
+    public void editEmail(String email) {
         this.email = email;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
     }
 
 }

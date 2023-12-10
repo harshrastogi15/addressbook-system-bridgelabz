@@ -1,11 +1,11 @@
 import java.util.*;
 
-class AddressBookMain{
+class AddressBookMain {
 
-    public static HashMap<String,HashMap<String,AddressBook>> contactDetail = new HashMap<>();
+    public static HashMap<String, HashMap<String, AddressBook>> contactDetail = new HashMap<>();
 
     // Taking Input for New User
-    public static void InputForAddressBook(Scanner scn,Integer cnt,String addressBookName){
+    public static void InputForAddressBook(Scanner scn, Integer cnt, String addressBookName) {
         System.out.println("Enter Your First Name: ");
         String firstName = scn.next();
 
@@ -13,8 +13,9 @@ class AddressBookMain{
          * Checking Duplicate entry in book
          */
 
-        if(contactDetail.get(addressBookName).get(firstName)!=null){
-            System.out.println("Detail already exist in this address book");return ;
+        if (contactDetail.get(addressBookName).get(firstName) != null) {
+            System.out.println("Detail already exist in this address book");
+            return;
         }
 
         System.out.println("Enter Your Last Name: ");
@@ -30,13 +31,13 @@ class AddressBookMain{
         System.out.println("Enter Your Email: ");
         String email = scn.next();
         AddressBook contact = new AddressBook(cnt, firstName, lastName, address, city, zip, phone, email);
-        HashMap<String,AddressBook> data = contactDetail.get(addressBookName);
+        HashMap<String, AddressBook> data = contactDetail.get(addressBookName);
         data.put(firstName, contact);
-        contactDetail.put(addressBookName,data);
+        contactDetail.put(addressBookName, data);
     }
 
     // UC3 - Edit functionality
-    public static void editFunction(Scanner scn, String addressBookName){
+    public static void editFunction(Scanner scn, String addressBookName) {
 
         System.out.println("Enter first name of the person: ");
         String name = scn.next();
@@ -51,52 +52,61 @@ class AddressBookMain{
             System.out.println("5: For editing email");
             System.out.println("0: For Exit");
             condition = scn.nextInt();
-            if(condition == 0){break;}
-            else if(condition == 1){
+            if (condition == 0) {
+                break;
+            } else if (condition == 1) {
                 System.out.println("Enter new address");
                 String address = scn.next();
                 contactDetail.get(addressBookName).get(name).editAddress(address);
-            }
-            else if(condition == 2){
+            } else if (condition == 2) {
                 System.out.println("Enter new city");
                 String city = scn.next();
                 contactDetail.get(addressBookName).get(name).editCity(city);
-            }
-            else if(condition == 3){
+            } else if (condition == 3) {
                 System.out.println("Enter new zipcode");
                 Integer zip = scn.nextInt();
                 contactDetail.get(addressBookName).get(name).editZipCode(zip);
-            }
-            else if(condition == 4){
+            } else if (condition == 4) {
                 System.out.println("Enter new phone");
                 String phone = scn.next();
                 contactDetail.get(addressBookName).get(name).editPhoneNo(phone);
-            }
-            else if(condition == 5){
+            } else if (condition == 5) {
                 System.out.println("Enter new email");
                 String email = scn.next();
-                contactDetail.get(addressBookName).get(name).editEmail(email);;
-            }else{
+                contactDetail.get(addressBookName).get(name).editEmail(email);
+                ;
+            } else {
                 System.out.println("you have entered wrong key");
             }
         }
     }
 
     // UC4 - Delete Functionality
-    public static void deleteFunction(Scanner scn, String addressBookName){
+    public static void deleteFunction(Scanner scn, String addressBookName) {
         System.out.println("Enter first name of the person: ");
         String name = scn.next();
         contactDetail.get(addressBookName).remove(name);
         System.out.println("Deleted Successfuly");
     }
 
-    public static void diplayAllContact(String addressBookName){
-        for( String keys: contactDetail.get(addressBookName).keySet()){
+    public static void diplayAllContact(String addressBookName) {
+        for (String keys : contactDetail.get(addressBookName).keySet()) {
             contactDetail.get(addressBookName).get(keys).displayInformation();
         }
     }
 
-    public static String forTakingBookNameInput(Scanner scn){
+    // UC8 - Ability to search Person in a City or State
+    public static void searchByCity(String city) {
+        for (String addressBookName : contactDetail.keySet()) {
+            for (Map.Entry<String, AddressBook> user : contactDetail.get(addressBookName).entrySet()) {
+                if (user.getValue().getCity().equals(city)) {
+                    user.getValue().displayInformation();
+                }
+            }
+        }
+    }
+
+    public static String forTakingBookNameInput(Scanner scn) {
         System.out.println("Exist Address Book");
         System.out.println(contactDetail.keySet());
         System.out.println("Enter Address Book Name");
@@ -106,39 +116,43 @@ class AddressBookMain{
 
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book");
-        Scanner scn = new Scanner( System.in);
+        Scanner scn = new Scanner(System.in);
         Integer operation;
         Integer cnt = 1;
-        while(true){
+        while (true) {
             System.out.println("Enter Integer for Different operations");
             System.out.println("1 : for Adding new Detail");
             System.out.println("2 : for edit existing Detail");
             System.out.println("3 : for delete existing Detail");
             System.out.println("4 : for diplay all contact information");
             System.out.println("5 : for new address book name");
+            System.out.println("6 : for Search by City");
             System.out.println("0 : for Exit");
             operation = scn.nextInt();
-            if(operation == 0){
+            if (operation == 0) {
                 break;
-            }else if(operation == 1){
+            } else if (operation == 1) {
                 String s = forTakingBookNameInput(scn);
-                InputForAddressBook(scn,cnt,s);
+                InputForAddressBook(scn, cnt, s);
                 cnt++;
-            }else if(operation == 2){
+            } else if (operation == 2) {
                 String s = forTakingBookNameInput(scn);
-                editFunction(scn,s);
-            }else if(operation == 3){
+                editFunction(scn, s);
+            } else if (operation == 3) {
                 String s = forTakingBookNameInput(scn);
-                deleteFunction(scn,s);
-            }else if(operation == 4){
+                deleteFunction(scn, s);
+            } else if (operation == 4) {
                 String s = forTakingBookNameInput(scn);
                 diplayAllContact(s);
-            }else if(operation == 5){
+            } else if (operation == 5) {
                 String s = forTakingBookNameInput(scn);
-                HashMap<String,AddressBook> data = new HashMap<>();
+                HashMap<String, AddressBook> data = new HashMap<>();
                 contactDetail.put(s, data);
-            }
-            else{
+            } else if (operation == 6) {
+                System.out.println("Enter City Name: ");
+                String city = scn.next();
+                searchByCity(city);
+            } else {
                 System.out.println("you have entered wrong key");
             }
         }
